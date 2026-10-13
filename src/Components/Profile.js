@@ -17,7 +17,7 @@ function Profile() {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
 
-  document.title = "Profile section"
+  document.title = "Profile section";
 
   const checkDP = () => {
     if (user && user.photoURL && user.photoURL.includes("https")) {
@@ -63,7 +63,15 @@ function Profile() {
           </div>
           <div className="account-section2">
             <div className="left-account-section">
-              <img src={image} className="profile-img" />
+              <img
+                src={image}
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = Default;
+                }}
+                className="profile-img"
+              />
               <p className="profile-name">
                 {user ? `${user.displayName}` : ""}
               </p>
@@ -72,7 +80,7 @@ function Profile() {
                 onClick={() => {
                   signOut(auth);
                   setTimeout(() => {
-                    navigate("/signup"); 
+                    navigate("/signup");
                   }, 700);
                 }}
                 className="signout-btn"
@@ -101,7 +109,9 @@ function Profile() {
                     <p className="mail-data">Contact</p>
                     <img src={contact} className="mail-photo" />
                   </div>
-                  <p className="users-mail">{user ? `${user.email.slice(0,15) + "..."}` : ""}</p>
+                  <p className="users-mail">
+                    {user ? `${user.email.slice(0, 15) + "..."}` : ""}
+                  </p>
                 </div>
               </div>
             </div>

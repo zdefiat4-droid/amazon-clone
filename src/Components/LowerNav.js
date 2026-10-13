@@ -69,12 +69,12 @@ function LowerNav() {
   const searchResults = Products.filter(
     (product) =>
       product.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchText.toLowerCase())
+      product.description.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   const totalQuantity = CartItems.reduce(
     (total, item) => total + item.quantity,
-    0
+    0,
   );
 
   return (
@@ -188,6 +188,11 @@ function LowerNav() {
                 ? user.photoURL.replace(/^http:\/\//i, "https://") //replaces the http with https
                 : Default
             }
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = Default;
+            }}
             className="default"
           />
         </div>
